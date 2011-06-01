@@ -21,14 +21,37 @@ Configuration via Git
   git clone git@localhost:gitolite-admin
 
 1. Add some ssh keys to keydir.
-2. Creating a repository and give people access.
-3. Set up branch-level permissions.
-4. Check your access:
+2. Create a repository and give people access.
+3. Check your access:
 
   ssh git@localhost info
 
-Advanced Configuration
-----------------------
+Groups of Users and Repositories
+--------------------------------
 
-  - username-based branches
-  - hooks
+@projects = project1 project2
+@admins = paul
+@coders = paul david jeremy ryantm russ coder
+@gatekeepers = paul ryantm
+
+Branch/Tag-Level Permissions
+----------------------------
+RW+ feature/	= @coders
+RW  master$	= @gatekeepers
+RW  refs/tags/v[0-9]+	= jeremy
+
+These are (perl) regular expressions!
+
+Summary of permissions:
+
+  R read
+  W write (push)
+  + non-fast-forward update
+  C create branch/tag
+  D delete branch/tag
+  - deny permissions
+
+More Advanced Patterns
+----------------------
+RW+ dev/USER/	= @coders
+RW+ NAME/Makefile = paul
