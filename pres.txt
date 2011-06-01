@@ -1,0 +1,34 @@
+Gitolite
+
+Gitolite Installation (as user "git")
+-------------------------------------
+
+Log in as a new user "git".
+Put ~git/bin in the $PATH.
+
+  git clone git://github.com/sitaramc/gitolite
+  cd gitolite/
+  src/gl-system-install 
+  gl-setup <your SSH public key>
+
+*** FROM THIS POINT ON:
+Do not do anything else as user "git" ever again!
+(Except some advanced stuff.)
+
+Configuration via Git
+---------------------
+
+  git clone git@localhost:gitolite-admin
+
+1. Add some ssh keys to keydir.
+2. Creating a repository and give people access.
+3. Set up branch-level permissions.
+4. Check your access:
+
+  ssh git@localhost info
+
+Advanced Configuration
+----------------------
+
+  - username-based branches
+  - hooks
