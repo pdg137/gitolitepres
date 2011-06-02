@@ -1,8 +1,14 @@
 Gitolite
 
+What is Gitolite?
+-----------------
+- A multi-user git repository management system.
+- Uses SSH for authentication.
+- Highly configurable repo- and branch-level permissions.
+- Scales to 1000s of users and repositories.
+
 Gitolite Installation (as user "git")
 -------------------------------------
-
 Log in as a new user "git".
 Put ~git/bin in the $PATH.
 
@@ -40,7 +46,7 @@ RW+ feature/	= @coders
 RW  master$	= @gatekeepers
 RW  refs/tags/v[0-9]+	= jeremy
 
-These are (perl) regular expressions!
+Refs match (perl) regular expressions.
 
 Summary of permissions:
 
@@ -55,3 +61,25 @@ More Advanced Patterns
 ----------------------
 RW+ dev/USER/	= @coders
 RW+ NAME/Makefile = paul
+
+Global Hooks
+------------
+Put hooks in ~git/.gitolite/hooks/common, then run setup again.
+See instructions if you need the update hook.
+
+Wildcard Repositories
+---------------------
+Enable in ~git/.gitolite.rc
+Allow users to create new repositories:
+
+repo	personal/CREATOR/.*
+	C	=   @all
+	RW+	=   CREATOR
+	RW	=   WRITERS
+	R	=   READERS
+
+Users can update permissions:
+
+ssh git@localhost setperms <repo>
+READERS paul
+WRITERS david jeremy
